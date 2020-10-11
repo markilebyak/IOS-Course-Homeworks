@@ -38,6 +38,12 @@ struct NoteDataManager {
         return nil
     }
     
+    // Hint: .first(where:)
+//    func searchNoteByName(noteName: String) -> Note? {
+//        // Function searching note by its name
+//        notesArray.first(where: { $0.noteName == noteName })
+//    }
+    
     mutating func changeNoteFavoutiteStatus(noteName: String) {
         // Function setting note favourite status to opposite value
         if let index = notesArray.firstIndex(where: { $0.noteName == noteName }) {
@@ -83,7 +89,7 @@ struct NoteDataManager {
                 someNote.noteId = notesDeletedArray.count
                 someNote.noteDeletionDate = Date()
                 notesDeletedArray.append(someNote)
-                notesArray.remove(at: deletedId)
+                notesArray.remove(at: deletedId) // Comment: strongly not recommended to operate with IDs as with indecies
                 recoverNotesIds()
             }
         }
@@ -125,7 +131,7 @@ struct NoteDataManager {
     func filterByTag(noteTag: String)-> [Note]{
         // Function filtering notes by provided tag
         var resultNotes = [Note]()
-        for someNote in notesArray {
+        for someNote in notesArray { // Hint: .filter(where:)
             if someNote.noteTags.contains(noteTag) {
                 resultNotes.append(someNote)
             }
